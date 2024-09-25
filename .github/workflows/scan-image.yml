@@ -6,6 +6,9 @@ on:
     types: [build-completed]
     branches:
       - main
+    paths:
+      - Dockerfile
+      - .github/workflows/scan-image.yml
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
