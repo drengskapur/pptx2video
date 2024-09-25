@@ -6,8 +6,6 @@ on:
     types: [build-completed]
     branches:
       - main
-    paths:
-      - Dockerfile
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
