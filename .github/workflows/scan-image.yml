@@ -2,9 +2,10 @@ name: "Scan Image"
 
 on:
   workflow_dispatch:
-  push:
+  repository_dispatch:
+    types: [build-completed]
     branches:
-      - "main"
+      - main
 
 jobs:
   scan:
