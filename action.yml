@@ -1,0 +1,71 @@
+name: 'Convert PowerPoint to Video with Voiceover'
+description: 'Automatically create a video from a PowerPoint presentation, using AI-generated voiceovers for each slide based on the notes section.'
+
+inputs:
+  pptx_file:
+    description: 'The path to the PowerPoint (.pptx) file to convert.'
+    required: true
+  openai_api_key:
+    description: 'The OpenAI API key to use for TTS generation.'
+    required: true
+  model:
+    description: 'The TTS model to use for speech synthesis (default: tts-1-hd).'
+    required: false
+    default: 'tts-1-hd'
+  voice:
+    description: 'The voice profile to use for TTS generation (default: echo).'
+    required: false
+    default: 'echo'
+  response_format:
+    description: 'The audio format of the output file (default: mp3).'
+    required: false
+    default: 'mp3'
+  speed:
+    description: 'The speed of the synthesized speech (0.25 to 4.0, default: 1.0).'
+    required: false
+    default: 1.0
+  output_file:
+    description: 'The output video file name (default: output.mp4).'
+    required: false
+    default: 'output.mp4'
+
+runs:
+  using: "composite"
+  steps:
+    - name: Check out repository
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.x'
+
+    - name: Install system dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y ffmpeg libreoffice poppler-utils
+
+    - name: Install Python dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install aiohttp openai pdf2image Pillow python-pptx tenacity
+
+    - name: Generate video from PowerPoint
+      run: |
+        export OPENAI_API_KEY=${{ inputs.openai_api_key }}
+        python scripts/pptx2video.py ${{ inputs.pptx_file }} \
+          --model ${{ inputs.model }} \
+          --voice ${{ inputs.voice }} \
+          --format ${{ inputs.response_format }} \
+          --speed ${{ inputs.speed }}
+
+    - name: Upload video artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: video-output
+        path: ${{ inputs.output_file }}
+
+outputs:
+  video_file:
+    description: 'The path to the generated video file.'
+    value: ${{ inputs.output_file }}
