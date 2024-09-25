@@ -1,4 +1,4 @@
-name: "Scan Image"
+name: Scan Image
 
 on:
   workflow_dispatch:
@@ -6,6 +6,8 @@ on:
     types: [build-completed]
     branches:
       - main
+    paths:
+      - Dockerfile
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
