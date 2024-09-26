@@ -29,7 +29,7 @@ jobs:
         run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Run the Anchore Grype scan action
-        uses: anchore/scan-action@latest
+        uses: anchore/scan-action@d5aa5b6cb9414b0c7771438046ff5bcfa2854ed7
         id: scan
         with:
           image: "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest"
