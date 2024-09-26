@@ -30,6 +30,9 @@ jobs:
         with:
           fetch-depth: 1
 
+      - name: TruffleHog OSS
+        uses: trufflesecurity/trufflehog@v3.82.5
+
       - name: Login to GitHub Container Registry
         uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3
         with:
