@@ -62,6 +62,7 @@ jobs:
         with:
           image: ghcr.io/drengskapur/pptx2video:latest
           fail-build: false
+          output-format: sarif
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@461ef6c76dfe95d5c364de2f431ddbd31a417628 # v3
