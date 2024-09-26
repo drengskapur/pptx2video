@@ -1,15 +1,8 @@
-# This workflow uses actions that are not certified by GitHub.
-# They are provided by a third-party and are governed by
-# separate terms of service, privacy policy, and support
-# documentation.
-
 name: trivy
 
 on:
-  push:
-    branches: ["main"]
-  pull_request:
-    branches: ["main"]
+  repository_dispatch:
+    types: [image-push]
   schedule:
     - cron: "29 1 * * 4"
 
@@ -26,18 +19,21 @@ jobs:
   build:
     name: Build
     runs-on: "ubuntu-20.04"
+    env:
+      IMAGE_NAME: pptx2video
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
 
       - name: Build an image from Dockerfile
         run: |
-          docker build -t ghcr.io/drengskapur/pptx2video:${{ github.sha }} .
+          docker build -t ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.sha }} .
 
       - name: Run Trivy vulnerability scanner
         uses: aquasecurity/trivy-action@7b7aa264d83dc58691451798b4d117d53d21edfe
         with:
-          image-ref: "ghcr.io/drengskapur/pptx2video:${{ github.sha }}"
+          image-ref: "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:${{ github.sha }}"
           format: "template"
           template: "@/contrib/sarif.tpl"
           output: "trivy-results.sarif"

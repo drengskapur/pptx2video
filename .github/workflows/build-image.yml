@@ -56,4 +56,4 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          bash dispatch-event.sh drengskapur/pptx2video build-completed
+          bash dispatch-event.sh drengskapur/pptx2video image-push
