@@ -4,11 +4,11 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
   repository_dispatch:
     types: [build-completed]
     branches:
       - main
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
