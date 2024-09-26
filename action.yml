@@ -63,7 +63,7 @@ runs:
           --speed ${{ inputs.speed }}
 
     - name: Upload video artifact
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4.4.0
       with:
         name: video-output
         path: ${{ inputs.output_file }}

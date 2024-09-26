@@ -45,7 +45,7 @@ jobs:
           image-ref: ghcr.io/drengskapur/pptx2video:latest
 
       - name: Create SBOM
-        uses: anchore/sbom-action@v0
+        uses: anchore/sbom-action@v0.17.2
         with:
           format: spdx-json
           output-file: "${{ github.event.repository.name }}-sbom.spdx.json"
