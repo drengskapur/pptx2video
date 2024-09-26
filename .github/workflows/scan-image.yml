@@ -31,10 +31,10 @@ jobs:
           fetch-depth: 1
 
       - name: Initialize CodeQL
-        uses: github/codeql-action/init@d97ba04b39135f37e9d60c84a6995bb18b7ac328 # v2
+        uses: github/codeql-action/init@v3
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@d97ba04b39135f37e9d60c84a6995bb18b7ac328 # v2
+        uses: github/codeql-action/analyze@v3
 
       - name: Login to GitHub Container Registry
         uses: docker/login-action@9780b0c442fbb1117ed29e0efdff1e18412f7567 # v3
