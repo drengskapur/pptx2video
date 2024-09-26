@@ -1,7 +1,6 @@
 name: Build Image
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - main
@@ -9,6 +8,7 @@ on:
       - .github/workflows/build-image.yml
       - Dockerfile
       - scripts/pptx2video.py
+  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
