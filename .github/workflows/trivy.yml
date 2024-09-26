@@ -2,7 +2,7 @@ name: trivy
 
 on:
   repository_dispatch:
-    types: [image-push]
+    types: [build-completed]
   schedule:
     - cron: "29 1 * * 4"
 
