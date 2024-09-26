@@ -44,6 +44,18 @@ jobs:
         with:
           image-ref: ghcr.io/drengskapur/pptx2video:latest
 
+      - name: Create SBOM
+        uses: anchore/sbom-action@v0
+        with:
+          format: spdx-json
+          output-file: "${{ github.event.repository.name }}-sbom.spdx.json"
+
+      - name: Scan SBOM
+        uses: anchore/scan-action@v3
+        with:
+          sbom: "${{ github.event.repository.name }}-sbom.spdx.json"
+          fail-build: false
+
       - name: Anchore Container Scan
         uses: anchore/scan-action@64a33b277ea7a1215a3c142735a1091341939ff5 # v4.1.2
         id: scan

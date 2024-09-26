@@ -1,33 +1,33 @@
-name: 'Convert PowerPoint to Video with Voiceover'
-description: 'Automatically create a video from a PowerPoint presentation, using AI-generated voiceovers for each slide based on the notes section.'
+name: "Convert PowerPoint to Video with Voiceover"
+description: "Automatically create a video from a PowerPoint presentation, using AI-generated voiceovers for each slide based on the notes section."
 
 inputs:
   pptx_file:
-    description: 'The path to the PowerPoint (.pptx) file to convert.'
+    description: "The path to the PowerPoint (.pptx) file to convert."
     required: true
   openai_api_key:
-    description: 'The OpenAI API key to use for TTS generation.'
+    description: "The OpenAI API key to use for TTS generation."
     required: true
   model:
-    description: 'The TTS model to use for speech synthesis (default: tts-1-hd).'
+    description: "The TTS model to use for speech synthesis (default: tts-1-hd)."
     required: false
-    default: 'tts-1-hd'
+    default: "tts-1-hd"
   voice:
-    description: 'The voice profile to use for TTS generation (default: echo).'
+    description: "The voice profile to use for TTS generation (default: echo)."
     required: false
-    default: 'echo'
+    default: "echo"
   response_format:
-    description: 'The audio format of the output file (default: mp3).'
+    description: "The audio format of the output file (default: mp3)."
     required: false
-    default: 'mp3'
+    default: "mp3"
   speed:
-    description: 'The speed of the synthesized speech (0.25 to 4.0, default: 1.0).'
+    description: "The speed of the synthesized speech (0.25 to 4.0, default: 1.0)."
     required: false
-    default: 1.0
+    default: "1.0"
   output_file:
-    description: 'The output video file name (default: output.mp4).'
+    description: "The output video file name (default: output.mp4)."
     required: false
-    default: 'output.mp4'
+    default: "output.mp4"
 
 runs:
   using: "composite"
@@ -38,19 +38,22 @@ runs:
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
-        python-version: '3.x'
+        python-version: "3.x"
 
     - name: Install system dependencies
+      shell: bash
       run: |
         sudo apt-get update
         sudo apt-get install -y ffmpeg libreoffice poppler-utils
 
     - name: Install Python dependencies
+      shell: bash
       run: |
         python -m pip install --upgrade pip
         pip install aiohttp openai pdf2image Pillow python-pptx tenacity
 
     - name: Generate video from PowerPoint
+      shell: bash
       run: |
         export OPENAI_API_KEY=${{ inputs.openai_api_key }}
         python scripts/pptx2video.py ${{ inputs.pptx_file }} \
@@ -67,5 +70,5 @@ runs:
 
 outputs:
   video_file:
-    description: 'The path to the generated video file.'
+    description: "The path to the generated video file."
     value: ${{ inputs.output_file }}
