@@ -8,6 +8,7 @@ on:
       - .github/workflows/build-image.yml
       - Dockerfile
       - scripts/pptx2video.py
+      - requirements.txt
   workflow_dispatch:
 
 concurrency:
