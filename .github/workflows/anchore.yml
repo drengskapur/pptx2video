@@ -18,18 +18,21 @@ concurrency:
 jobs:
   Anchore-Build-Scan:
     runs-on: ubuntu-latest
+    env:
+      IMAGE_NAME: pptx2video
+
     steps:
       - name: Check out the code
         uses: actions/checkout@v4
 
       - name: Build the Docker image
-        run: docker build . --file Dockerfile --tag drengskapur/pptx2video:latest
+        run: docker build . --file Dockerfile --tag ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest
 
       - name: Run the Anchore Grype scan action
-        uses: anchore/scan-action@d5aa5b6cb9414b0c7771438046ff5bcfa2854ed7
+        uses: anchore/scan-action@latest
         id: scan
         with:
-          image: "drengskapur/pptx2video:latest"
+          image: "ghcr.io/${{ github.repository_owner }}/${{ env.IMAGE_NAME }}:latest"
           fail-build: false
           severity-cutoff: critical
 
