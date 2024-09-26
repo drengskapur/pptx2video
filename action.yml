@@ -50,7 +50,7 @@ runs:
       shell: bash
       run: |
         python -m pip install --upgrade pip
-        pip install aiohttp openai pdf2image Pillow python-pptx tenacity
+        pip install -r requirements.txt
 
     - name: Generate video from PowerPoint
       shell: bash
