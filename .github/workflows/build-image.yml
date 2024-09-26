@@ -6,8 +6,9 @@ on:
     branches:
       - main
     paths:
-      - Dockerfile
       - .github/workflows/build-image.yml
+      - Dockerfile
+      - scripts/pptx2video.py
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
