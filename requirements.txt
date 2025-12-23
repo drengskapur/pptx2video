@@ -1,5 +1,5 @@
 aiohttp==3.8.6
-openai==0.27.8
+openai==0.28.1
 pdf2image==1.16.3
 Pillow==10.0.0
 python-pptx==0.6.21
